@@ -1,0 +1,16 @@
+.git
+.gitignore
+*.pyc
+__pycache__/
+
+engine_core.py
+
+*.md
+
+config/
+cache/
+
+peq_toggle.py
+spacemaster_console.py
+peq_control.html
+spacemaster-mpv-plugin/

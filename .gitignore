@@ -1,0 +1,16 @@
+# 二进制算法 sm_dsp_engine：随公开仓库分发（NAS 为 Linux，运行必需），【不】忽略
+# 注意：必须是 Linux 版（ELF）；macOS 版（Mach-O）无法在 NAS 容器内运行
+
+# 算法源码：绝不进公开仓库
+engine_core.py
+
+# Python 编译产物（不应进仓库）
+__pycache__/
+*.pyc
+
+# 系统/编辑器杂项
+.DS_Store
+*.swp
+
+# 本地生成的文档预览（仅供本机查阅，不进仓库）
+_docs_full_preview.html

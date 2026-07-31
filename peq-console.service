@@ -1,0 +1,15 @@
+[Unit]
+Description=SpaceMaster EQ Console (port 8777)
+After=network.target docker.service
+Requires=docker.service
+[Service]
+Type=simple
+WorkingDirectory=/opt/sm
+ExecStart=/usr/bin/python3 /opt/sm/peq_toggle_nas.py
+Restart=always
+RestartSec=3
+User=root
+StandardOutput=append:/opt/sm/peq-console.log
+StandardError=append:/opt/sm/peq-console.log
+[Install]
+WantedBy=multi-user.target

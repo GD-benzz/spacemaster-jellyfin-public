@@ -1,0 +1,167 @@
+# NOTICE · 法律与开源声明 / Legal & Open-Source Notice
+
+> 空间大师只做转码音频工作，Jellyfin 字幕 / 刮削 / 元数据 / 媒体库 / 用户记录等其它功能均不受影响。
+
+**SpaceMaster for Jellyfin（空间大师 · Jellyfin 版）**
+
+本文件说明本项目与 Jellyfin、ffmpeg 等开源组件的版权 / 商标 / 许可证关系，
+并阐明我们的开源态度。无论您使用「版本A（已有 Jellyfin）」还是「版本B（无 Jellyfin）」，
+下面的合规原则**同时适用**。
+
+---
+
+## 一、项目性质
+
+SpaceMaster（空间大师）是一个**第三方**为 Jellyfin 媒体服务器开发的「房间声学校正」附加层。
+**它不是 Jellyfin 的官方产品，也不是 Jellyfin 的修改发行版。**
+
+---
+
+## 二、Jellyfin 版权（GPLv2+）
+
+Jellyfin 及其组件（包括其镜像中附带的 jellyfin-ffmpeg）以 **GNU General Public License v2 或更高版本（GPLv2+）** 授权。
+
+- 本项目**不修改** Jellyfin 的源代码或二进制；
+- 本项目**不重新分发** Jellyfin。终端用户使用的 Jellyfin 来自官方 Docker Hub 镜像
+  `jellyfin/jellyfin`（或 Jellyfin 官方其他发行渠道），该分发由 **Jellyfin 项目自身**
+  负责并提供对应的 GPL 源码义务；
+- Jellyfin 源码仓库：<https://github.com/jellyfin/jellyfin>
+- jellyfin-ffmpeg 源码仓库：<https://github.com/jellyfin/jellyfin-ffmpeg>
+
+如需获取 Jellyfin 的对应源码（GPL 要求的「对应源码」），请直接前往上述官方仓库。
+**我们（SpaceMaster）既不持有、也不提供 Jellyfin 的源码**——因为这不属于我们的分发范围。
+
+---
+
+## 三、商标
+
+「Jellyfin」是 Jellyfin 项目的商标。本项目在名称、文档中提及「Jellyfin」，**仅用于描述性地
+表明兼容对象**。SpaceMaster 与 Jellyfin 项目**无任何关联**，未获得其认可、背书或赞助。
+任何因名称引发的「官方关联」误解，特此声明予以排除。
+
+---
+
+## 四、ffmpeg / jellyfin-ffmpeg（GPL）
+
+本项目的 `sm_wrapper.sh` 只**拦截** Jellyfin 对 ffmpeg 的调用：它**不改动 ffmpeg 本身的代码**，
+只是把音频引擎算出的滤镜参数，作为命令行参数注入到**同一次** ffmpeg 转码中。
+实际执行转码的 ffmpeg，仍是 Jellyfin 官方镜像提供的那份原版。
+
+---
+
+## 五、闭源算法引擎 `sm_dsp_engine`（独立进程 · 非衍生作品）
+
+独家声学算法（驻波模态推导、参量均衡 PEQ、多声道下混矩阵、环绕对称延时、左右平衡）
+以编译后的原生二进制 `sm_dsp_engine` 形式分发；其源码 `engine_core.py` **不公开**。
+
+- 该二进制通过 `sm_wrapper.sh` 以**独立进程**（fork/exec 调用真实 ffmpeg）的方式工作，
+  是**与 Jellyfin / ffmpeg 在运行时聚合的独立程序**；
+- 它**不构成**对 Jellyfin 或 ffmpeg（GPL 组件）的「衍生作品（derivative work）」；
+- 因此其闭源状态**不会对 Jellyfin / ffmpeg 的 GPL 义务产生任何影响**，也不会因 GPL 被强制开源；
+- 反之，Jellyfin / ffmpeg 的 GPL 条款也**不延伸至**该闭源二进制。
+
+这属于 GPL 所界定的「单纯聚合（mere aggregation）/ 独立程序经系统调用协作」情形，
+与「静态/动态链接 GPL 库从而构成衍生作品」有本质区别。
+
+---
+
+## 六、开源精神：集成层全部开源
+
+本公开仓库包含的全部**集成层**——薄壳脚本、控制台界面、Docker 文件、配置格式、文档——
+均为**开源**，可自由审计、修改与再分发。我们仅在「独家声学算法」这一核心 IP 上保持闭源
+（以编译二进制形式分发），这是有意为之的知识产权保护，**并不妨碍**用户对集成机制的审查。
+
+---
+
+## 七、两种安装方式均合规（版本A / 版本B）
+
+| 方式 | 说明 | Jellyfin 从哪来 |
+|------|------|----------------|
+| **版本A**（用户已有 Jellyfin） | 用您现有的 Jellyfin，仅以本项目薄壳/引擎接管其 ffmpeg | 您**自己原有的** Jellyfin |
+| **版本B**（用户没有 Jellyfin） | `docker-compose.yml` 由您的 Docker **直接拉官方 `jellyfin/jellyfin`**，再挂上本项目引擎 | Docker Hub 官方镜像 |
+
+两种情况下，**Jellyfin 始终由您 / Docker Hub 获取，SpaceMaster 从不托管或再分发 Jellyfin**。
+
+---
+
+## 八、免责声明
+
+本项目按「原样（as-is）」提供，不提供任何明示或暗示的担保。使用本项目改造 Jellyfin 转码流程的
+风险由使用者自行承担。
+
+---
+
+# English
+
+**SpaceMaster for Jellyfin — Third-party room-acoustics correction layer.**
+
+This document explains how this project relates to Jellyfin, ffmpeg and other open-source
+components regarding copyright, trademark and licensing. The compliance principles below apply
+to **both** installation variants: "Version A (you already have Jellyfin)" and
+"Version B (you don't have Jellyfin)".
+
+### 1. Nature of the project
+SpaceMaster is a **third-party** add-on for the Jellyfin media server. It is **not** an official
+Jellyfin product and **not** a modified distribution of Jellyfin.
+
+### 2. Jellyfin copyright (GPLv2+)
+Jellyfin and its components (including the jellyfin-ffmpeg shipped in its image) are licensed
+under the **GNU General Public License v2 or later (GPLv2+)**.
+
+- This project does **not modify** Jellyfin's source or binaries;
+- This project does **not redistribute** Jellyfin. End users obtain Jellyfin from the official
+  Docker Hub image `jellyfin/jellyfin` (or other official Jellyfin channels); that distribution
+  and its GPL source obligation are handled by the **Jellyfin project itself**;
+- Jellyfin source: <https://github.com/jellyfin/jellyfin>
+- jellyfin-ffmpeg source: <https://github.com/jellyfin/jellyfin-ffmpeg>
+
+If you need Jellyfin's corresponding source (as required by the GPL), go to the official
+repositories above. **We (SpaceMaster) neither hold nor distribute Jellyfin's source**, because
+it is outside our distribution scope.
+
+### 3. Trademark
+"Jellyfin" is a trademark of the Jellyfin project. References to "Jellyfin" in this project's
+name and docs are **descriptive only**, indicating compatibility. SpaceMaster is **not affiliated
+with, endorsed by, or sponsored by** the Jellyfin project. Any implication of official association
+is expressly disclaimed.
+
+### 4. ffmpeg / jellyfin-ffmpeg (GPL)
+Our `sm_wrapper.sh` only **intercepts** Jellyfin's invocation of ffmpeg: it does **not alter
+ffmpeg's code**; it merely injects the filter arguments (computed by our engine) into the **same**
+ffmpeg transcode. The ffmpeg that actually runs is the original one shipped by the official
+Jellyfin image.
+
+### 5. Closed-source engine `sm_dsp_engine` (separate process · not a derivative work)
+The proprietary acoustic algorithms (room-mode derivation, PEQ, downmix matrix, symmetric
+surround delay, balance) ship as a compiled native binary `sm_dsp_engine`; its source
+`engine_core.py` is **not published**.
+
+- The binary runs as a **separate process** (fork/exec of the real ffmpeg) via `sm_wrapper.sh` —
+  an independent program that merely aggregates at runtime with Jellyfin / ffmpeg;
+- It is **not a derivative work** of Jellyfin or ffmpeg (GPL components);
+- Therefore its closed-source status **imposes no obligations** on Jellyfin's / ffmpeg's GPL
+  terms, and it is **not forced open** by the GPL;
+- Conversely, the GPL of Jellyfin / ffmpeg **does not extend** to this closed-source binary.
+
+This is the classic "mere aggregation / independent programs cooperating via system calls" case,
+distinct from "statically/dynamically linking a GPL library" which would create a derivative work.
+
+### 6. Open-source spirit: the integration layer is fully open
+Everything in this public repository — shell wrappers, console UI, Docker files, config formats,
+docs — is **open source**, freely auditable, modifiable and redistributable. We keep only the
+proprietary acoustic algorithm closed (as a compiled binary), as deliberate IP protection that
+does **not** prevent users from auditing the integration mechanics.
+
+### 7. Both install variants are compliant (Version A / Version B)
+
+| Variant | Description | Where Jellyfin comes from |
+|---------|-------------|---------------------------|
+| **Version A** (you already have Jellyfin) | Use your existing Jellyfin; only let our wrapper/engine take over its ffmpeg | your **own existing** Jellyfin |
+| **Version B** (you don't have Jellyfin) | `docker-compose.yml` has your Docker **pull the official `jellyfin/jellyfin`**, then mounts our engine | official Docker Hub image |
+
+In both cases, **Jellyfin is always obtained by you / Docker Hub; SpaceMaster never hosts or
+redistributes Jellyfin**.
+
+### 8. Disclaimer
+This project is provided "as-is", without warranty of any kind. Use of this project to modify
+Jellyfin's transcode pipeline is at your own risk.
