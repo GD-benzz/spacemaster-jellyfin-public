@@ -97,7 +97,7 @@ player ──► :8097 proxy ──► :8096 Jellyfin ──► ffmpeg ──►
 
 Your Jellyfin image, media library and config are untouched. To uninstall: drop the overlay (remove the entrypoint) and restart — stock Jellyfin is back.
 
-👉 Install: see [安装指南.md](安装指南.md) (Chinese).
+👉 Install: see [安装指南.md](安装指南.md) (bilingual: 中文 / English).
 
 ### Does it affect any other Jellyfin feature
 
